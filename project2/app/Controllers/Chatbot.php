@@ -19,8 +19,8 @@ class Chatbot extends BaseController
             return $this->response->setJSON(['error' => 'API Key belum di-setup di .env']);
         }
 
-        // Endpoint yang Anda berikan
-        $endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=' . $apiKey;
+        // Menggunakan model Gemini 2.5 Flash yang tersedia di API key Anda saat ini
+        $endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=' . $apiKey;
 
         $client = \Config\Services::curlrequest();
         
@@ -46,12 +46,13 @@ class Chatbot extends BaseController
 
             $body = json_decode($response->getBody(), true);
 
-            // Cek sukses kembalian
             if (isset($body['candidates'][0]['content']['parts'][0]['text'])) {
                 $reply = $body['candidates'][0]['content']['parts'][0]['text'];
                 return $this->response->setJSON(['reply' => $reply]);
+            } else if (isset($body['error']['message'])) {
+                return $this->response->setJSON(['error' => 'Dari Gemini: ' . $body['error']['message']]);
             } else {
-                return $this->response->setJSON(['error' => 'Format balasan tidak terbaca dari server Gemini.', 'debug' => $body]);
+                return $this->response->setJSON(['error' => 'Respon tidak terduga, struktur JSON salah.', 'debug' => $body]);
             }
         } catch (\Exception $e) {
             return $this->response->setJSON(['error' => 'Terjadi kesalahan sistem: ' . $e->getMessage()]);
