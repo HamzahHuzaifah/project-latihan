@@ -8,13 +8,13 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css') ?>" />
 </head>
-
 <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container">
             <a class="navbar-brand" href="<?= base_url() ?>">MyBlog</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
@@ -25,14 +25,19 @@
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href="<?= base_url('admin/post/new') ?>" class="btn btn-primary mr-3">New Post</a>
+                        <a href="<?= base_url('admin/post/new') ?>"
+                           class="btn btn-primary mr-3">New Post</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url('admin/setting') ?>">Setting</a>
                     </li>
+                    <!-- update nav -->
                     <li class="nav-item">
-                        <a class="nav-link" href="<?=
-                        base_url('logout') ?>">Logout</a>
+                        <?php if (logged_in()) : ?>
+                            <a class="nav-link" href="<?= base_url('logout') ?>">Logout</a>
+                        <?php else: ?>
+                            <a class="nav-link" href="<?= base_url('login') ?>">Login</a>
+                        <?php endif; ?>
                     </li>
                 </ul>
             </div>
@@ -56,29 +61,31 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($posts as $post): ?>
-                    <tr>
-                        <td><?= $post['number'] ?></td>
-                        <td>
-                            <strong><?= $post['title'] ?></strong><br>
-                            <small class="text-muted"><?= $post['created_at'] ?></small>
-                        </td>
-                        <td>
-                            <?php if ($post['status'] === 'published'): ?>
-                                <small class="text-success"><?= $post['status'] ?></small>
-                            <?php else: ?>
-                                <small class="text-muted"><?= $post['status'] ?></small>
-                            <?php endif ?>
-                        </td>
-                        <td>
-                            <a href="<?= base_url('admin/post/' . $post['id'] . '/preview') ?>"
-                                class="btn btn-sm btn-outline-secondary" target="_blank">Preview</a>
-                            <a href="<?= base_url('admin/post/' . $post['id'] . '/edit') ?>"
-                                class="btn btn-sm btn-outline-secondary">Edit</a>
-                            <a href="#" data-href="<?= base_url('admin/post/' . $post['id'] . '/delete') ?>"
-                                onclick="confirmToDelete(this)" class="btn btn-sm btn-outline-danger">Delete</a>
-                        </td>
-                    </tr>
+                <?php $no = 0; foreach($posts as $post): $no++; ?>
+                <tr>
+                    <td><?= $no; ?></td>
+                    <td>
+                        <strong><?= $post['title'] ?></strong><br>
+                        <small class="text-muted"><?= $post['created_at'] ?></small>
+                    </td>
+                    <td>
+                        <?php if($post['status'] === 'published'): ?>
+                        <small class="text-success"><?= $post['status'] ?></small>
+                        <?php else: ?>
+                        <small class="text-muted"><?= $post['status'] ?></small>
+                        <?php endif ?>
+                    </td>
+                    <td>
+                        <a href="<?= base_url('admin/post/'.$post['id'].'/preview') ?>"
+                           class="btn btn-sm btn-outline-secondary" target="_blank">Preview</a>
+                        <a href="<?= base_url('admin/post/'.$post['id'].'/edit') ?>"
+                           class="btn btn-sm btn-outline-secondary">Edit</a>
+                        <a href="#"
+                           data-href="<?= base_url('admin/post/'.$post['id'].'/delete') ?>"
+                           onclick="confirmToDelete(this)"
+                           class="btn btn-sm btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
                 <?php endforeach ?>
             </tbody>
         </table>
@@ -92,8 +99,10 @@
                         <p>The data will be deleted and lost forever</p>
                     </div>
                     <div class="modal-footer">
-                        <a href="#" role="button" id="delete-button" class="btn btn-danger">Delete</a>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <a href="#" role="button" id="delete-button"
+                           class="btn btn-danger">Delete</a>
+                        <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </div>
             </div>
@@ -125,5 +134,4 @@
     <script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>
 
 </body>
-
 </html>
