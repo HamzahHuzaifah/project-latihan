@@ -21,6 +21,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<?= base_url('faqs') ?>">FAQ</a>
                 </li>
+                <li class="nav-item">
+                    <?php if (logged_in()) : ?>
+                        <a class="nav-link" href="<?= base_url('logout') ?>">Logout</a>
+                    <?php else: ?>
+                        <a class="nav-link" href="<?= base_url('login') ?>">Login</a>
+                    <?php endif; ?>
+                </li>
             </ul>
         </div>
     </div>
