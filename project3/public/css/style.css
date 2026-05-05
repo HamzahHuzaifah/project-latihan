@@ -1,0 +1,62 @@
+/* Custom CSS for MyBlog */
+
+/* 2. Detail Artikel */
+.article-content {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.7; /* Nyaman dibaca */
+    font-size: 1.05rem;
+}
+
+/* 3. Grid Thumbnail Halaman Utama */
+.post-thumbnail {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+/* 4. Tema Admin */
+body.admin-body {
+    background-color: #f8f9fa; /* Latar belakang sedikit berbeda dari halaman publik */
+}
+
+.admin-navbar {
+    background-color: #1a202c !important; /* Warna gelap khusus admin */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 5. Dark Mode Styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode .bg-light {
+    background-color: #1e1e1e !important;
+}
+
+body.dark-mode .card {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
+
+body.dark-mode .card-body, body.dark-mode .card-title, body.dark-mode .text-dark {
+    color: #e0e0e0 !important;
+}
+
+body.dark-mode .text-muted {
+    color: #aaa !important;
+}
+
+body.dark-mode .border-top {
+    border-color: #333 !important;
+}
+
+/* Custom Jumbotron */
+.jumbotron-custom {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+body.dark-mode .jumbotron-custom {
+    background: linear-gradient(135deg, #2c3e50 0%, #000000 100%);
+    color: white;
+}

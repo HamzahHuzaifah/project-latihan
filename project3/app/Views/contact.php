@@ -1,62 +1,51 @@
+<?= $this->extend('layouts/main') ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<?= $this->section('content') ?>
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>MyBlog</title>
-
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css') ?>" />
-</head>
-
-<body>
-
-	<?= $this->include('layouts/navbar'); ?>
-
-	<div class="p-5 mb-4 bg-light rounded-3">
-      <div class="container py-5">
-        <h1 class="display-5 fw-bold">Contact</h1>
-        
-      </div>
+<div class="bg-indigo-700 dark:bg-indigo-900 pb-24 pt-12" data-aos="fade-down">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl font-extrabold text-white sm:text-5xl md:text-6xl tracking-tight mb-4">Contact Us</h1>
+        <p class="max-w-xl mt-5 mx-auto text-xl text-indigo-200">Hubungi kami melalui berbagai saluran yang tersedia di bawah ini.</p>
     </div>
+</div>
 
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12 my-2 card">
-				<div class="card-body">
-					<h5 class="h5">Alamat</h5>
-					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam perferendis commodi tenetur quos ducimus repellat nulla, nam magni. Commodi iusto ad harum voluptas exercitationem facere eos earum laboriosam excepturi quas?</p>
-				</div>
-			</div>
-			<div class="col-md-12 my-2 card">
-				<div class="card-body">
-					<h5 class="h5">Email</h5>
-					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam perferendis commodi tenetur quos ducimus repellat nulla, nam magni. Commodi iusto ad harum voluptas exercitationem facere eos earum laboriosam excepturi quas?</p>
-				</div>
-			</div>
-			<div class="col-md-12 my-2 card">
-				<div class="card-body">
-					<h5 class="h5">No.HP</h5>
-					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam perferendis commodi tenetur quos ducimus repellat nulla, nam magni. Commodi iusto ad harum voluptas exercitationem facere eos earum laboriosam excepturi quas?</p>
-				</div>
-			</div>
-			
-		</div>
-	</div>
-	<div class="container py-4">
-		<footer class="pt-3 mt-4 text-muted border-top">
-			<div class="container">
-				&copy; <?= Date('Y') ?>
-			</div>
-		</footer>
-	</div>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Card 1 -->
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8 border border-slate-100 dark:border-slate-700 text-center" data-aos="fade-up" data-aos-delay="100">
+            <div class="w-16 h-16 mx-auto bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-400 rounded-full flex items-center justify-center text-3xl mb-4">
+                📍
+            </div>
+            <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Alamat</h2>
+            <p class="text-slate-600 dark:text-slate-300">
+                Jl. Teknologi No. 42<br>Jakarta Selatan, 12345<br>Indonesia
+            </p>
+        </div>
 
-	<!-- Jquery dan Bootsrap JS -->
-	<script src="<?= base_url('js/jquery.min.js') ?>"></script>
-	<script src="<?= base_url('js/bootstrap.min.js') ?>"></script>
+        <!-- Card 2 -->
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8 border border-slate-100 dark:border-slate-700 text-center" data-aos="fade-up" data-aos-delay="200">
+            <div class="w-16 h-16 mx-auto bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center text-3xl mb-4">
+                📧
+            </div>
+            <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Email</h2>
+            <p class="text-slate-600 dark:text-slate-300">
+                <a href="mailto:hello@myblog.com" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">hello@myblog.com</a><br>
+                <a href="mailto:support@myblog.com" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">support@myblog.com</a>
+            </p>
+        </div>
 
-</body>
+        <!-- Card 3 -->
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8 border border-slate-100 dark:border-slate-700 text-center" data-aos="fade-up" data-aos-delay="300">
+            <div class="w-16 h-16 mx-auto bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-400 rounded-full flex items-center justify-center text-3xl mb-4">
+                📞
+            </div>
+            <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">No. HP</h2>
+            <p class="text-slate-600 dark:text-slate-300">
+                +62 812 3456 7890<br>
+                +62 898 7654 3210
+            </p>
+        </div>
+    </div>
+</div>
 
-</html>
+<?= $this->endSection() ?>

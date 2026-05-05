@@ -1,83 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
+<?= $this->extend('layouts/main') ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyBlog</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css') ?>" />
-</head>
-<body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="<?= base_url() ?>">MyBlog</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarNav" aria-controls="navbarNav"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('admin/post') ?>">Blog</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="<?= base_url('admin/post/new') ?>"
-                           class="btn btn-primary mr-3">New Post</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('admin/setting') ?>">Setting</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('auth/logout') ?>">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<?= $this->section('content') ?>
 
-    <div class="p-5 mb-4 bg-light rounded-3">
-        <div class="container py-5">
-            <h1 class="display-5 fw-bold">Blog > Admin</h1>
-        </div>
+<div class="bg-indigo-700 dark:bg-indigo-900 pb-24 pt-12" data-aos="fade-down">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-4xl font-extrabold text-white sm:text-5xl tracking-tight mb-2">Edit Artikel</h1>
+        <p class="text-indigo-200 text-lg">Perbarui informasi dan konten artikel Anda.</p>
     </div>
-    
-    <!-- update post -->
-    <div class="container">
-        <form action="" method="post" id="text-editor">
+</div>
+
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 mb-20" data-aos="fade-up">
+    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-100 dark:border-slate-700 p-8">
+        
+        <form action="<?= base_url('admin/post/'.$post['id'].'/edit') ?>" method="POST" id="postForm" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?= $post['id'] ?>" />
-            <div class="form-group mb-2">
-                <label for="title">Title</label>
-                <input type="text" name="title" class="form-control"
-                    placeholder="Post title" value="<?= $post['title'] ?>" required>
-            </div>
-            <div class="form-group mb-2">
-                <textarea name="content" class="form-control" cols="30" rows="10"
-                        placeholder="Write a great post!"><?= $post['content'] ?></textarea>
-            </div>
-            <div class="form-group mb-2">
-                <button type="submit" name="status" value="published"
-                        class="btn btn-primary">Publish</button>
-                <button type="submit" name="status" value="draft"
-                        class="btn btn-secondary">Save to Draft</button>
+            <div class="space-y-6">
+                <!-- Title -->
+                <div>
+                    <label for="title" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Judul Artikel</label>
+                    <input type="text" class="appearance-none block w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm !bg-white dark:!bg-slate-700 !text-slate-900 dark:!text-white" id="title" name="title" value="<?= esc($post['title']) ?>" placeholder="Masukkan judul yang menarik..." required>
+                </div>
+
+                <!-- Thumbnail -->
+                <div>
+                    <label for="thumbnail" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Thumbnail Artikel (Opsional)</label>
+                    <input type="file" name="thumbnail" id="thumbnail" accept="image/*" class="appearance-none block w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm bg-white dark:bg-slate-700 text-slate-900 dark:text-white sm:text-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <?php if(!empty($post['thumbnail'])): ?>
+                        <div class="mt-2 text-sm text-slate-500">
+                            Thumbnail saat ini: <img src="<?= base_url('uploads/thumbnails/' . $post['thumbnail']) ?>" alt="Thumbnail" class="mt-2 h-20 rounded shadow-sm">
+                        </div>
+                    <?php endif; ?>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Status -->
+                    <div>
+                        <label for="status" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Status</label>
+                        <select name="status" class="appearance-none block w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm !bg-white dark:!bg-slate-700 !text-slate-900 dark:!text-white" id="status">
+                            <option value="draft" <?= $post['status'] == 'draft' ? 'selected' : '' ?>>Draft</option>
+                            <option value="published" <?= $post['status'] == 'published' ? 'selected' : '' ?>>Published</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Category -->
+                    <div>
+                        <label for="category_id" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Kategori</label>
+                        <div class="flex items-center space-x-2 mt-2">
+                            <select name="category_id" id="category_id" class="appearance-none block w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm !bg-white dark:!bg-slate-700 !text-slate-900 dark:!text-white" onchange="toggleNewCategory()">
+                                <?php foreach($categories as $category): ?>
+                                    <option value="<?= $category['id'] ?>" <?= $post['category_id'] == $category['id'] ? 'selected' : '' ?>><?= esc($category['name']) ?></option>
+                                <?php endforeach ?>
+                                <option value="new" class="font-bold text-indigo-600">Lainnya (Tambah Baru)...</option>
+                            </select>
+                            <button type="button" onclick="editCategory()" class="p-2 text-blue-600 hover:bg-blue-100 rounded" title="Edit Kategori">✏️</button>
+                            <button type="button" onclick="deleteCategory()" class="p-2 text-red-600 hover:bg-red-100 rounded" title="Hapus Kategori">🗑️</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div>
+                    <label for="content" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Konten Artikel</label>
+                    <input type="hidden" name="content" id="content">
+                    <div id="editor-container" class="bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-b-md" style="height: 400px;"><?= $post['content'] ?></div>
+                </div>
+
+                <div class="pt-4 flex justify-end gap-3">
+                    <a href="<?= base_url('admin/post') ?>" class="inline-flex items-center px-4 py-2 border border-slate-300 dark:border-slate-600 shadow-sm text-sm font-medium rounded-md text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 focus:outline-none transition-colors">Batal</a>
+                    <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">Perbarui Artikel</button>
+                </div>
             </div>
         </form>
+
     </div>
+</div>
 
-    <div class="container py-4">
-        <footer class="pt-3 mt-4 text-muted border-top">
-            <div class="container">
-                &copy; <?= Date('Y') ?>
-            </div>
-        </footer>
-    </div>
-
-    <!-- jQuery dan Bootstrap JS -->
-    <script src="<?= base_url('js/jquery.min.js') ?>"></script>
-    <script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>
-
-</body>
-</html>
+<?= $this->endSection() ?>
